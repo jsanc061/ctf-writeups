@@ -1,0 +1,862 @@
+CTFLearn.com Easy Challenges
+
+# CTFLearn.com CTF Easy Challenges
+### Flags should return similar to CTFlearn{...}
+
+## Basic Injection (30 pts)
+Given this link https://web.ctflearn.com/web4/
+
+### input:
+```'or '1'='1 ```
+### output: 
+```  
+Name: Luke
+Data: I made this problem.
+Name: Alec
+Data: Steam boys.
+Name: Jalen
+Data: Pump that iron fool.
+Name: Eric
+Data: I make cars.
+Name: Sam
+Data: Thinks he knows SQL.
+Name: fl4g__giv3r
+Data: th4t_is_why_you_n33d_to_sanitiz3_inputs
+Name: snoutpop
+Data: jowls
+Name: Chunbucket
+Data: @datboiiii 
+```
+
+### Flag:
+``` 
+CTFlearn{th4t_is_why_you_n33d_to_sanitiz3_inputs}
+```
+
+## Forensics 101
+Given this link https://mega.nz/#!OHohCbTa!wbg60PARf4u6E6juuvK9-aDRe_bgEL937VO01EImM7c
+
+Downloads this file ``` 95f6edfb66ef42d774a5a34581f19052.jpg ```
+
+Converted JPEG into TXT
+
+Used nano to find the flag using ``` Ctrl + W ``` and then searching ``` flag ``` throughout the file
+
+### Flag:
+```
+CTFlearn{wow!_data_is_cool}
+```
+
+### Alternate Solution (1):
+
+Use the command 
+``` 
+grep -i --color -a "flag" 95f6edfb66ef42d774a5a34581f19052.txt 
+```
+### Output:
+``` 
+E�{}>�@n4�vk�39�AM;�"k��(+�Yc7X�8��d8OɄ��!"U�S���c�\ܺE��e&�eny���>��;W)O�iDl�����k�E���p(��*�+׿���`t&�KڹP@�Ny��/���(�flag{wow!_data_is_cool}�S�gYG
+```
+
+### Flag: 
+``` 
+CTFlearn{wow!_data_is_cool} 
+```
+### Alternate Solution (2):
+
+Use the command 
+``` 
+strings 95f6edfb66ef42d774a5a34581f19052.jpg | grep "flag"
+```
+### Output:
+``` 
+flag{wow!_data_is_cool}
+```
+
+### Flag: 
+``` 
+CTFlearn{wow!_data_is_cool} 
+```
+
+## Taking LS
+Given this link: https://mega.nz/#!mCgBjZgB!_FtmAm8s_mpsHr7KWv8GYUzhbThNn0I8cHMBi4fJQp8
+The link downloaded ``` 'The Flag.zip' ```
+Opened the archived zip using 7-Zip to find folder ``` The Flag ```
+Browsed ``` The Flag ``` directory and opened ``` The Flag.pdf ```
+This file was protected by a password so I need to keep digging around the archive
+Opened ``` .ThePassword ``` in ``` The Flag ``` directory which contained ``` ThePassword.txt ```
+Opened this file to view: 
+```
+Nice Job!  The Password is "Im The Flag". 
+```
+Used the password on ``` TheFlag.pdf ``` which displayed: 
+```
+Here is the Flag: ABCTF{T3Rm1n4l_is_C00l} 
+```
+
+### Flag: ``` CTFlearn{T3Rm1n4l_is_C00l} ```
+
+## Where Can My Robot Go?
+### Given: 
+```
+Where do robots find what pages are on a website?
+Hint:
+    What does disallow tell a robot?
+```
+Took the current URL, https://ctflearn.com/challenge/107 and replaced it with https://ctflearn.com/robots.txt
+
+### Output 
+```
+User-agent: *
+Disallow: /70r3hnanldfspufdsoifnlds.html 
+CTFlearn{/70r3hnanldfspufdsoifnlds.html}
+```
+
+Navigated URL to https://ctflearn.com/70r3hnanldfspufdsoifnlds.html and found the flag.
+
+### Flag: 
+``` 
+CTFlearn{r0b0ts_4r3_th3_futur3}
+```
+
+## Binwalk
+Given this link: https://mega.nz/#!qbpUTYiK!-deNdQJxsQS8bTSMxeUOtpEclCI-zpK7tbJiKV0tXYY
+Downloaded ``` PurpleThing .jpeg ``` 
+
+Tried the command ``` binwalk -Me PurpleThing.jpeg ``` to recursively extract the files, but led to extracting a seemingly endless loop of folders such as 0.zlib
+Tried to extract the zlib files using 7z and gzip, did not work
+
+Used Cyberchef to extract the images files and found ``` extracted_at_0x25795.png ``` 
+Opened up this image to find the flag 
+### Flag: 
+``` 
+CTFlearn{b1nw4lk_is_us3ful}
+```
+### *Alternate Solution*
+Use binwalk command to extract all the files 
+``` 
+binwalk -D='.*' PurpleThing.jpeg
+```
+Navigated the extracted files and converted them all into PNG by adding the proper file extension
+File 25795.png revealed the flag 
+Flag:
+```
+ABCTF{b1nw4lk_is_us3ful}
+```
+
+
+## Character Encoding
+### Given:
+``` 
+41 42 43 54 46 7B 34 35 43 31 31 5F 31 35 5F 55 35 33 46 55 4C 7D
+```
+
+Converted from Hex to get the following output
+### Output:
+```
+ABCTF{45C11_15_U53FUL}
+```
+### Flag:
+```
+CTFlearn{45C11_15_U53FUL}
+```
+
+## Practice Flag
+### Given: flag{CTFLearn_is_awesome}
+### Flag: flag{CTFLearn_is_awesome}
+
+## Reversal of Fortune
+### Given:
+```
+Our team of agents have been tracking a hacker that sends cryptic messages to other hackers about what he's doing. We intercepted the below message he sent recently, can you figure out what it says? He mentions his hacker name in it, that's the code you need.
+
+.nac uoy fi tIe$reveRpilF eldnah ym gnisu em egassem ,avaj yllacificeps ,gnidoc emos htiw pleh deen I ,deifitnedi tegrat txeN
+```
+### Output:
+``` 
+Next target identified, I need help with some coding, specifically java, message me using my handle FlipRever$eIt if you can.
+``` 
+### Flag:
+```
+CTFlearn{FlipRever$eIt}
+```
+
+## Hextroainary
+### Given:
+``` 
+Meet ROXy, a coder obsessed with being exclusively the worlds best hacker. She specializes in short cryptic hard to decipher secret codes. The below hex values for example, she did something with them to generate a secret code, can you figure out what? Your answer should start with 0x.
+
+0xc4115 0x4cf8
+```
+Used a XOR calculator to add the two hex values together to get:
+### Output:
+``` 0xC0DED ```
+
+### Flag:
+```
+CTFlearn{0xC0DED}
+```
+
+## Wikipedia
+### Given:
+```
+Not much to go off here, but it’s all you need: Wikipedia and 128.125.52.138. 
+```
+Navigated to https://www.wikipedia.org/ and entered the given IP address
+This displayed all of the IP user's contributions to Wikipedia that included one post to 'Flag'
+Navigated to through the Flag link and searched for 'CTF' which found the flag.
+
+### Flag:
+``` 
+CTFlearn{cNi76bV2IVERlh97hP}
+```
+
+## Simple Programming
+### Given:
+```
+Can you help me? I need to know how many lines there are where the number of 0's is a multiple of 3 or the numbers of 1s is a multiple of 2. Please! Here is the file: https://mega.nz/#!7aoVEKhK!BAohJ0tfnP7bISIkbADK3qe1yNEkzjHXLKoJoKmqLys
+```
+The link downloaded ``` data.dat ``` which had binary data on each line
+Using Python3, I created a small script to read each line and create a counter for each of the zeros and ones. If the number of zeroes were a multiple of 3, then I increased the counter. If the number of ones were a multiple of 2, then I increased the counter. At the end of the program, the counter resulted in 6662.
+
+#### Source Code - Using Python3
+``` 
+file = open('data.dat')
+try:
+	count = 0
+    print('file opened')
+    l = file.readlines()
+    print('reading file lines ')
+    for line in l:
+        zero = line.count('0') # counts number of zeros in each line
+        one = line.count('1')  # counts number of ones in each line
+        if(zero % 3== 0 or one % 2 == 0):
+            count += 1
+finally:
+    print('Number of lines: ' + str(count))
+    file.close()
+    print('closing file... ')
+```
+### Output: 
+```
+file opened
+reading file lines
+Number of lines: 6662
+closing file...
+```
+### Flag:
+``` 
+CTFlearn{6662}
+```
+
+## Base 2 2 the 6
+### Given:
+```
+There are so many different ways of encoding and decoding information nowadays... One of them will work! Q1RGe0ZsYWdneVdhZ2d5UmFnZ3l9
+```
+Decoded the given string using Base64 
+### Output:
+```
+CTF{FlaggyWaggyRaggy}
+```
+### Flag:
+``` 
+CTFlearn{FlaggyWaggyRaggy}
+```
+
+## Bruxor
+### Given:
+```
+There is a technique called bruteforce. Message: q{vpln'bH_varHuebcrqxetrHOXEj No key! Just brute .. brute .. brute ... :D
+```
+Used Cyberchef to brute force XOR the message string
+Found the flag at Key = 17
+### Output 
+```
+flag{y0u_Have_bruteforce_XOR}
+```
+### Flag:
+``` 
+CTFlearn{y0u_Have_bruteforce_XOR}
+```
+
+## QR Code 
+### Given:
+```
+Do you remember something known as QR Code? Simple. Here for you : <br /> https://mega.nz/#!eGYlFa5Z!8mbiqg3kosk93qJCP-DBxIilHH2rf7iIVY-kpwyrx-0
+```
+
+Used Cyberchef to parse the QR Code
+### Output:
+``` 
+c3ludCB2ZiA6IGEwX29icWxfczBldHJnX2RlX3BicXI=
+```
+
+Decyphered output string using base64
+### Output:
+``` 
+synt vf : a0_obql_s0etrg_de_pbqr
+```
+Decyphered new string using ROT13 on cyberchef
+### Output:
+```
+flag is : n0_body_f0rget_qr_code
+```
+
+### Flag:
+``` 
+CTFlearn{n0_body_f0rget_qr_code}
+```
+
+## Reverse Polarity
+### Given:
+```
+I got a new hard drive just to hold my flag, but I'm afraid that it rotted. What do I do? The only thing I could get off of it was this: 01000011010101000100011001111011010000100110100101110100010111110100011001101100011010010111000001110000011010010110111001111101
+```
+
+Used Cyberchef to decode from binary
+### Output:
+```
+CTF{Bit_Flippin}
+```
+### Flag:
+``` 
+CTFlearn{Bit_Flippin}
+```
+
+## QR Code V2
+### Given:
+```
+How well are you in the ways of the QR Code? https://mega.nz/#!JItR3aqI!QKGxexShAPt-HUU_2DAdJKUljXc69sx1fXuaGUeoKaY
+```
+Parsed the QR Code using Cyberchef
+
+### Output:
+```
+https://mega.nz/#!9NFhUbwQ!vtrLVum8z-ZXzur33RrGJ4uivMJhA9_5TW2ulHucXoU
+```
+Downloaded Flag.txt from the link 
+### Flag:
+``` 
+CTFlearn{2_QR_4_U}
+```
+
+## Vigenere Cipher
+### Given:
+```
+
+
+The vignere cipher is a method of encrypting alphabetic text by using a series of interwoven Caesar ciphers based on the letters of a keyword.<br />
+
+I’m not sure what this means, but it was left lying around: blorpy
+
+gwox{RgqssihYspOntqpxs}
+
+```
+### Output:
+``` 
+flag{CiphersAreAwesome}
+```
+### Flag:
+``` 
+CTFlearn{CiphersAreAwesome}
+```
+
+
+## Morse Code 
+### Given:
+```
+..-. .-.. .- --. ... .- -- ..- . .-.. -- --- .-. ... . .. ... -.-. --- --- .-.. -... -.-- - .... . .-- .- -.-- .. .-.. .. -.- . -.-. .... . . ...
+```
+### Output:
+``` 
+FLAGSAMUELMORSEISCOOLBYTHEWAYILIKECHEES
+```
+### Flag:
+``` 
+CTFlearn{FLAGSAMUELMORSEISCOOLBYTHEWAYILIKECHEES}
+```
+
+## WOW .... So Meta
+### Given:
+```
+This photo was taken by our target. See what you can find out about him from it. https://mega.nz/#!ifA2QAwQ!WF-S-MtWHugj8lx1QanGG7V91R-S1ng7dDRSV25iFbk
+```
+### Output:
+``` 
+3UWLBAUCb9Z2.jpg 
+```
+
+Examined the file using exiftool command to extract all metadata to find the flag
+``` 
+exiftool 3UWLBAUCb9Z2.jpg 
+``` 
+### Output:
+``` 
+ExifTool Version Number         : 10.80
+File Name                       : 3UWLBAUCb9Z2.jpg
+Directory                       : .
+File Size                       : 101 kB
+File Modification Date/Time     : 2020:08:05 23:01:46-05:00
+File Access Date/Time           : 2020:08:05 23:05:03-05:00
+File Inode Change Date/Time     : 2020:08:05 23:02:10-05:00
+File Permissions                : rwxrwxrwx
+File Type                       : JPEG
+File Type Extension             : jpg
+MIME Type                       : image/jpeg
+JFIF Version                    : 1.01
+Current IPTC Digest             : dbad0204d16a63027791298bc460859a
+Coded Character Set             : UTF8
+Application Record Version      : 2
+Digital Creation Time           : 16:45:55
+Digital Creation Date           : 2014:12:27
+Time Created                    : 16:45:55
+IPTC Digest                     : dbad0204d16a63027791298bc460859a
+Exif Byte Order                 : Big-endian (Motorola, MM)
+Orientation                     : Horizontal (normal)
+X Resolution                    : 72
+Y Resolution                    : 72
+Resolution Unit                 : inches
+Software                        : Photos 1.5
+Modify Date                     : 2014:12:27 16:45:55
+Exif Version                    : 0221
+Date/Time Original              : 2014:12:27 16:45:55
+Create Date                     : 2014:12:27 16:45:55
+Components Configuration        : Y, Cb, Cr, -
+Light Source                    : Tungsten (Incandescent)
+Flashpix Version                : 0100
+Color Space                     : sRGB
+Exif Image Width                : 4002
+Exif Image Height               : 1536
+Scene Capture Type              : Standard
+Sharpness                       : Hard
+Padding                         : (Binary data 2060 bytes, use -b option to extract)
+XMP Toolkit                     : XMP Core 5.4.0
+Creator Tool                    : Photos 1.5
+Date Created                    : 2014:12:27 16:45:55
+Warning                         : [minor] Fixed incorrect URI for xmlns:MicrosoftPhoto
+Camera Serial Number            : flag{EEe_x_I_FFf}
+Image Width                     : 800
+Image Height                    : 307
+Encoding Process                : Baseline DCT, Huffman coding
+Bits Per Sample                 : 8
+Color Components                : 3
+Y Cb Cr Sub Sampling            : YCbCr4:2:0 (2 2)
+Date/Time Created               : 2014:12:27 16:45:55
+Digital Creation Date/Time      : 2014:12:27 16:45:55
+Image Size                      : 800x307
+Megapixels                      : 0.246
+```
+### Flag:
+``` 
+CTFlearn{EEe_x_I_FFf}
+```
+
+## HyperStream Test #2
+### Given:
+```
+I love the smell of bacon in the morning! ABAAAABABAABBABBAABBAABAAAAAABAAAAAAAABAABBABABBAAAAABBABBABABBAABAABABABBAABBABBAABB
+```
+Used Bacon Cipher on Cyberchef to decode the string set with A/B for translation
+### Input:
+```
+ABAAAABABAABBABBAABBAABAAAAAABAAAAAAAABAABBABABBAAAAABBABBABABBAABAABABABBAABBABBAABB
+```
+### Output:
+``` 
+ILOUEBACONDONTYOU
+```
+### Flag:
+``` 
+CTFlearn{ILOUEBACONDONTYOU}
+```
+
+## IP Tracer
+### Given:
+```
+Bob is an amateur hacker and has collected the following IP Address: 159.167.16.5, but Bob needs help finding where the IP Address is located. Can you help Bob find where the IP Address is located. (Type the City name)
+```
+
+Used https://www.iplocation.net/ to find IP's location
+### Output:
+``` 
+London
+```
+### Flag:
+``` 
+CTFlearn{London}
+```
+
+## Lazy Game Challenge
+### Given:
+```
+I found an interesting game made by some guy named "John_123". It is some betting game. I made some small fixes to the game; see if you can still pwn this and steal $1000000 from me!
+
+To get flag, pwn the server at: nc thekidofarcrania.com 10001
+
+```
+### Output:
+``` 
+Welcome to the Game of Luck !.
+
+Rules of the Game :
+(1) You will be Given 500$
+(2) Place a Bet
+(3) Guess the number what computer thinks of !
+(4) computer's number changes every new time !.
+(5) You have to guess a number between 1-10
+(6) You have only 10 tries !.
+(7) If you guess a number > 10, it still counts as a Try !
+(8) Put your mind, Win the game !..
+(9) If you guess within the number of tries, you win money !
+(10) Good Luck !..
+
+theKidOfArcrania:
+  I bet you cannot get past $1000000!
+
+Are you ready? Y/N :
+```
+
+I was able to enter large, negative bet (-$10000000000000000000) towards the game and kept guessing values outside of 1-10 to break more of the game's rules. At the end of the 10 rounds, it said I lost the game, but then update my currency to $10000000000000000500 which prompted the flag to display
+### Flag:
+``` 
+CTFlearn{d9029a08c55b936cbc9a30_i_wish_real_betting_games_were_like_this!}
+```
+
+## Rubber Duck
+### Given:
+```
+Find the flag! Simple forensics challenge to get started with.
+RubberDuck.jpg
+```
+
+Used the following command to extract metadata from the image:
+```
+exiftool RubberDuck.jpg
+```
+### Output:
+``` 
+ExifTool Version Number         : 10.80
+File Name                       : RubberDuck.jpg
+Directory                       : .
+File Size                       : 192 kB
+File Modification Date/Time     : 2020:08:05 23:52:28-05:00
+File Access Date/Time           : 2020:08:05 23:53:00-05:00
+File Inode Change Date/Time     : 2020:08:05 23:52:43-05:00
+File Permissions                : rwxrwxrwx
+File Type                       : JPEG
+File Type Extension             : jpg
+MIME Type                       : image/jpeg
+JFIF Version                    : 1.01
+Resolution Unit                 : None
+X Resolution                    : 72
+Y Resolution                    : 72
+Comment                         : CTFlearn{ILoveJakarta}.
+Profile CMM Type                : Apple Computer Inc.
+Profile Version                 : 4.0.0
+Profile Class                   : Display Device Profile
+Color Space Data                : RGB
+Profile Connection Space        : XYZ
+Profile Date Time               : 2017:07:07 13:22:32
+Profile File Signature          : acsp
+Primary Platform                : Apple Computer Inc.
+CMM Flags                       : Not Embedded, Independent
+Device Manufacturer             : Apple Computer Inc.
+Device Model                    :
+Device Attributes               : Reflective, Glossy, Positive, Color
+Rendering Intent                : Perceptual
+Connection Space Illuminant     : 0.9642 1 0.82491
+Profile Creator                 : Apple Computer Inc.
+Profile ID                      : ca1a9582257f104d389913d5d1ea1582
+Profile Description             : Display P3
+Profile Copyright               : Copyright Apple Inc., 2017
+Media White Point               : 0.95045 1 1.08905
+Red Matrix Column               : 0.51512 0.2412 -0.00105
+Green Matrix Column             : 0.29198 0.69225 0.04189
+Blue Matrix Column              : 0.1571 0.06657 0.78407
+Red Tone Reproduction Curve     : (Binary data 32 bytes, use -b option to extract)
+Chromatic Adaptation            : 1.04788 0.02292 -0.0502 0.02959 0.99048 -0.01706 -0.00923 0.01508 0.75168
+Blue Tone Reproduction Curve    : (Binary data 32 bytes, use -b option to extract)
+Green Tone Reproduction Curve   : (Binary data 32 bytes, use -b option to extract)
+Image Width                     : 1536
+Image Height                    : 2048
+Encoding Process                : Progressive DCT, Huffman coding
+Bits Per Sample                 : 8
+Color Components                : 3
+Y Cb Cr Sub Sampling            : YCbCr4:2:0 (2 2)
+Image Size                      : 1536x2048
+Megapixels                      : 3.1
+```
+### Flag:
+``` 
+CTFlearn{ILoveJakarta}
+```
+
+## Snowboard
+### Given:
+```
+Find the flag in the jpeg file. Good Luck!
+Snowboard.jpg
+```
+
+Used the following command to extract metadata from the image:
+```
+exiftool Snowboard.jpg
+```
+### Output:
+``` 
+ExifTool Version Number         : 10.80
+File Name                       : Snowboard.jpg
+Directory                       : .
+File Size                       : 103 kB
+File Modification Date/Time     : 2020:08:05 23:55:00-05:00
+File Access Date/Time           : 2020:08:05 23:55:50-05:00
+File Inode Change Date/Time     : 2020:08:05 23:55:40-05:00
+File Permissions                : rwxrwxrwx
+File Type                       : JPEG
+File Type Extension             : jpg
+MIME Type                       : image/jpeg
+JFIF Version                    : 1.01
+Comment                         : CTFlearn{CTFIsEasy!!!}.
+Exif Byte Order                 : Little-endian (Intel, II)
+Make                            : Canon
+Camera Model Name               : Canon EOS 6D Mark II
+X Resolution                    : 300
+Y Resolution                    : 300
+Resolution Unit                 : inches
+Software                        : GIMP 2.10.6
+Modify Date                     : 2019:05:07 14:37:21
+Exposure Time                   : 1/1250
+F Number                        : 4.0
+Exposure Program                : Manual
+ISO                             : 100
+Sensitivity Type                : Recommended Exposure Index
+Recommended Exposure Index      : 100
+Exif Version                    : 0230
+Date/Time Original              : 2018:08:23 12:52:08
+Create Date                     : 2018:08:23 12:52:08
+Shutter Speed Value             : 1/1250
+Aperture Value                  : 4.0
+Exposure Compensation           : 0
+Max Aperture Value              : 4.0
+Metering Mode                   : Multi-segment
+Flash                           : Off, Did not fire
+Focal Length                    : 88.0 mm
+Sub Sec Time Original           : 75
+Sub Sec Time Digitized          : 75
+Focal Plane X Resolution        : 6673.796791
+Focal Plane Y Resolution        : 6720.516963
+Focal Plane Resolution Unit     : inches
+Custom Rendered                 : Normal
+Exposure Mode                   : Manual
+White Balance                   : Auto
+Scene Capture Type              : Standard
+Serial Number                   : 082051002328
+Lens Info                       : 24-105mm f/?
+Lens Model                      : EF24-105mm f/4L IS USM
+Lens Serial Number              : 0000502af2
+Compression                     : JPEG (old-style)
+Photometric Interpretation      : YCbCr
+Samples Per Pixel               : 3
+Thumbnail Offset                : 932
+Thumbnail Length                : 8284
+XMP Toolkit                     : XMP Core 4.4.0-Exiv2
+Document ID                     : xmp.did:5745BC0FB0ABE811B17E9DE2D509CE38
+Instance ID                     : xmp.iid:2a75c26f-74d2-4550-bdf1-6260a95890e8
+Original Document ID            : EE719D915149C0C012BA4285EC4D4875
+Api                             : 2.0
+Platform                        : Windows
+Time Stamp                      : 1557232658413988
+Approximate Focus Distance      : 11.9
+Firmware                        : 1.0.3
+Flash Compensation              : 0
+Image Number                    : 0
+Lens                            : EF24-105mm f/4L IS USM
+Already Applied                 : True
+Auto Lateral CA                 : 0
+Blacks 2012                     : -10
+Blue Hue                        : 0
+Blue Saturation                 : 0
+Brightness                      : 0
+Camera Profile                  : Embedded
+Clarity                         : 0
+Clarity 2012                    : +21
+Color Noise Reduction           : 0
+Contrast                        : 0
+Contrast 2012                   : +5
+Convert To Grayscale            : False
+Crop Angle                      : 0
+Crop Bottom                     : 1
+Crop Constrain To Warp          : 0
+Crop Height                     : 3872
+Crop Left                       : 0.069159
+Crop Right                      : 1
+Crop Top                        : 0.069159
+Crop Unit                       : pixels
+Crop Width                      : 5808
+Defringe                        : 0
+Exposure                        : 0.00
+Exposure 2012                   : +0.10
+Fill Light                      : 0
+Grain Amount                    : 0
+Green Hue                       : 0
+Green Saturation                : 0
+Has Crop                        : True
+Has Settings                    : True
+Highlight Recovery              : 0
+Highlights 2012                 : -21
+Hue Adjustment Aqua             : 0
+Hue Adjustment Blue             : 0
+Hue Adjustment Green            : 0
+Hue Adjustment Magenta          : 0
+Hue Adjustment Orange           : 0
+Hue Adjustment Purple           : 0
+Hue Adjustment Red              : 0
+Hue Adjustment Yellow           : 0
+Incremental Temperature         : 0
+Incremental Tint                : 0
+Lens Manual Distortion Amount   : 0
+Lens Profile Enable             : 0
+Lens Profile Setup              : LensDefaults
+Luminance Adjustment Aqua       : 0
+Luminance Adjustment Blue       : 0
+Luminance Adjustment Green      : 0
+Luminance Adjustment Magenta    : 0
+Luminance Adjustment Orange     : 0
+Luminance Adjustment Purple     : 0
+Luminance Adjustment Red        : 0
+Luminance Adjustment Yellow     : 0
+Luminance Smoothing             : 0
+Parametric Darks                : 0
+Parametric Highlight Split      : 75
+Parametric Highlights           : 0
+Parametric Lights               : 0
+Parametric Midtone Split        : 50
+Parametric Shadow Split         : 25
+Parametric Shadows              : 0
+Perspective Horizontal          : 0
+Perspective Rotate              : 0.0
+Perspective Scale               : 100
+Perspective Vertical            : 0
+Post Crop Vignette Amount       : 0
+Process Version                 : 6.7
+Red Hue                         : 0
+Red Saturation                  : 0
+Saturation                      : +5
+Saturation Adjustment Aqua      : 0
+Saturation Adjustment Blue      : 0
+Saturation Adjustment Green     : 0
+Saturation Adjustment Magenta   : 0
+Saturation Adjustment Orange    : 0
+Saturation Adjustment Purple    : 0
+Saturation Adjustment Red       : 0
+Saturation Adjustment Yellow    : 0
+Shadow Tint                     : 0
+Shadows                         : 0
+Shadows 2012                    : +66
+Sharpen Detail                  : 25
+Sharpen Edge Masking            : 0
+Sharpen Radius                  : +1.0
+Sharpness                       : 0
+Split Toning Balance            : 0
+Split Toning Highlight Hue      : 0
+Split Toning Highlight Saturation: 0
+Split Toning Shadow Hue         : 0
+Split Toning Shadow Saturation  : 0
+Tone Curve                      : 0, 0, 255, 255
+Tone Curve Blue                 : 0, 0, 255, 255
+Tone Curve Green                : 0, 0, 255, 255
+Tone Curve Name                 : Linear
+Tone Curve Name 2012            : Linear
+Tone Curve PV2012               : 0, 0, 255, 255
+Tone Curve PV2012 Blue          : 0, 0, 255, 255
+Tone Curve PV2012 Green         : 0, 0, 255, 255
+Tone Curve PV2012 Red           : 0, 0, 255, 255
+Tone Curve Red                  : 0, 0, 255, 255
+Version                         : 7.0
+Vibrance                        : +15
+Vignette Amount                 : 0
+Whites 2012                     : 0
+Format                          : image/jpeg
+Creator Tool                    : GIMP 2.10
+Metadata Date                   : 2018:08:29 14:22:51-03:00
+Location Created                :
+Location Shown                  :
+Artwork Or Object               :
+Registry ID                     :
+History Action                  : derived, saved, saved
+History Parameters              : saved to new location
+History Changed                 : /, /
+History Instance ID             : xmp.iid:5745BC0FB0ABE811B17E9DE2D509CE38, xmp.iid:6047bbb2-fd56-4c4c-bc52-1b0854f657ac
+History Software Agent          : Adobe Photoshop Lightroom 4.0 (Windows), Gimp 2.10 (Windows)
+History When                    : 2018:08:29 14:22:51-03:00, 2019:05:07 14:37:38
+Derived From Document ID        : EE719D915149C0C012BA4285EC4D4875
+Derived From Original Document ID: EE719D915149C0C012BA4285EC4D4875
+Image Supplier                  :
+Image Creator                   :
+Copyright Owner                 :
+Licensor                        :
+Current IPTC Digest             : 6cd3ab5fbec9aa23bd736996a08e8c96
+Coded Character Set             : UTF8
+Date Created                    : 2019:05:07
+Digital Creation Date           : 2018:08:23
+Digital Creation Time           : 12:52:08+00:00
+Application Record Version      : 4
+Time Created                    : 14:37:21-14:37
+Image Width                     : 1200
+Image Height                    : 800
+Encoding Process                : Progressive DCT, Huffman coding
+Bits Per Sample                 : 8
+Color Components                : 3
+Y Cb Cr Sub Sampling            : YCbCr4:4:4 (1 1)
+Aperture                        : 4.0
+Date/Time Created               : 2019:05:07 14:37:21-14:37
+Digital Creation Date/Time      : 2018:08:23 12:52:08+00:00
+Image Size                      : 1200x800
+Megapixels                      : 0.960
+Scale Factor To 35 mm Equivalent: 1.5
+Shutter Speed                   : 1/1250
+Create Date                     : 2018:08:23 12:52:08.75
+Date/Time Original              : 2018:08:23 12:52:08.75
+Thumbnail Image                 : (Binary data 8284 bytes, use -b option to extract)
+Circle Of Confusion             : 0.020 mm
+Field Of View                   : 15.3 deg
+Focal Length                    : 88.0 mm (35 mm equivalent: 133.7 mm)
+Hyperfocal Distance             : 97.88 m
+Lens ID                         : Canon EF 24-105mm f/4L IS USM
+Light Value                     : 14.3
+```
+
+Found a flag but it did not work...
+```
+CTFlearn{CTFIsEasy!!!}
+```
+
+Used Binwalk this time to examine this file
+```
+binwalk -D='.*' Snowboard
+```
+Then ran binwalk again on these new files to find out which were JPEG files
+```
+binwalk *
+```
+### Output:
+```
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             JPEG image data, JFIF standard 1.01
+90            0x5A            TIFF image data, little-endian offset of first image directory: 8
+932           0x3A4           JPEG image data, JFIF standard 1.01
+9397          0x24B5          Unix path: /www.w3.org/1999/02/22-rdf-syntax-ns#"> <rdf:Description rdf:about="" xmlns:iptcExt="http://iptc.org/std/Iptc4xmpExt/2008-02-29/
+14651         0x393B          Copyright string: "CopyrightOwner> <rdf:Seq/> </plus:CopyrightOwner> <plus:Licensor> <rdf:Seq/> </plus:Licensor> </rdf:Description> </rdf:RDF> </x:"
+14685         0x395D          Copyright string: "CopyrightOwner> <plus:Licensor> <rdf:Seq/> </plus:Licensor> </rdf:Description> </rdf:RDF> </x:xmpmeta>  "
+```
+
+Used the following command to search for the flag in the first JPEG file
+```
+strings -n 8 0
+```
+### Flag:
+``` 
+
+```
