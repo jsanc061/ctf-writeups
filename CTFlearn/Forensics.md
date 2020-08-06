@@ -1,37 +1,4 @@
-CTFLearn.com Easy Challenges
-
-# CTFLearn.com CTF Easy Challenges
-### Flags should return similar to CTFlearn{...}
-
-## Basic Injection (30 pts)
-Given this link https://web.ctflearn.com/web4/
-
-### input:
-```'or '1'='1 ```
-### output: 
-```  
-Name: Luke
-Data: I made this problem.
-Name: Alec
-Data: Steam boys.
-Name: Jalen
-Data: Pump that iron fool.
-Name: Eric
-Data: I make cars.
-Name: Sam
-Data: Thinks he knows SQL.
-Name: fl4g__giv3r
-Data: th4t_is_why_you_n33d_to_sanitiz3_inputs
-Name: snoutpop
-Data: jowls
-Name: Chunbucket
-Data: @datboiiii 
-```
-
-### Flag:
-``` 
-CTFlearn{th4t_is_why_you_n33d_to_sanitiz3_inputs}
-```
+Forensics
 
 ## Forensics 101
 Given this link https://mega.nz/#!OHohCbTa!wbg60PARf4u6E6juuvK9-aDRe_bgEL937VO01EImM7c
@@ -96,29 +63,6 @@ Here is the Flag: ABCTF{T3Rm1n4l_is_C00l}
 
 ### Flag: ``` CTFlearn{T3Rm1n4l_is_C00l} ```
 
-## Where Can My Robot Go?
-### Given: 
-```
-Where do robots find what pages are on a website?
-Hint:
-    What does disallow tell a robot?
-```
-Took the current URL, https://ctflearn.com/challenge/107 and replaced it with https://ctflearn.com/robots.txt
-
-### Output 
-```
-User-agent: *
-Disallow: /70r3hnanldfspufdsoifnlds.html 
-CTFlearn{/70r3hnanldfspufdsoifnlds.html}
-```
-
-Navigated URL to https://ctflearn.com/70r3hnanldfspufdsoifnlds.html and found the flag.
-
-### Flag: 
-``` 
-CTFlearn{r0b0ts_4r3_th3_futur3}
-```
-
 ## Binwalk
 Given this link: https://mega.nz/#!qbpUTYiK!-deNdQJxsQS8bTSMxeUOtpEclCI-zpK7tbJiKV0tXYY
 Downloaded ``` PurpleThing .jpeg ``` 
@@ -142,239 +86,6 @@ File 25795.png revealed the flag
 Flag:
 ```
 ABCTF{b1nw4lk_is_us3ful}
-```
-
-
-## Character Encoding
-### Given:
-``` 
-41 42 43 54 46 7B 34 35 43 31 31 5F 31 35 5F 55 35 33 46 55 4C 7D
-```
-
-Converted from Hex to get the following output
-### Output:
-```
-ABCTF{45C11_15_U53FUL}
-```
-### Flag:
-```
-CTFlearn{45C11_15_U53FUL}
-```
-
-## Practice Flag
-### Given: flag{CTFLearn_is_awesome}
-### Flag: flag{CTFLearn_is_awesome}
-
-## Reversal of Fortune
-### Given:
-```
-Our team of agents have been tracking a hacker that sends cryptic messages to other hackers about what he's doing. We intercepted the below message he sent recently, can you figure out what it says? He mentions his hacker name in it, that's the code you need.
-
-.nac uoy fi tIe$reveRpilF eldnah ym gnisu em egassem ,avaj yllacificeps ,gnidoc emos htiw pleh deen I ,deifitnedi tegrat txeN
-```
-### Output:
-``` 
-Next target identified, I need help with some coding, specifically java, message me using my handle FlipRever$eIt if you can.
-``` 
-### Flag:
-```
-CTFlearn{FlipRever$eIt}
-```
-
-## Hextroainary
-### Given:
-``` 
-Meet ROXy, a coder obsessed with being exclusively the worlds best hacker. She specializes in short cryptic hard to decipher secret codes. The below hex values for example, she did something with them to generate a secret code, can you figure out what? Your answer should start with 0x.
-
-0xc4115 0x4cf8
-```
-Used a XOR calculator to add the two hex values together to get:
-### Output:
-``` 0xC0DED ```
-
-### Flag:
-```
-CTFlearn{0xC0DED}
-```
-
-## Wikipedia
-### Given:
-```
-Not much to go off here, but it’s all you need: Wikipedia and 128.125.52.138. 
-```
-Navigated to https://www.wikipedia.org/ and entered the given IP address
-This displayed all of the IP user's contributions to Wikipedia that included one post to 'Flag'
-Navigated to through the Flag link and searched for 'CTF' which found the flag.
-
-### Flag:
-``` 
-CTFlearn{cNi76bV2IVERlh97hP}
-```
-
-## Simple Programming
-### Given:
-```
-Can you help me? I need to know how many lines there are where the number of 0's is a multiple of 3 or the numbers of 1s is a multiple of 2. Please! Here is the file: https://mega.nz/#!7aoVEKhK!BAohJ0tfnP7bISIkbADK3qe1yNEkzjHXLKoJoKmqLys
-```
-The link downloaded ``` data.dat ``` which had binary data on each line
-Using Python3, I created a small script to read each line and create a counter for each of the zeros and ones. If the number of zeroes were a multiple of 3, then I increased the counter. If the number of ones were a multiple of 2, then I increased the counter. At the end of the program, the counter resulted in 6662.
-
-#### Source Code - Using Python3
-``` 
-file = open('data.dat')
-try:
-	count = 0
-    print('file opened')
-    l = file.readlines()
-    print('reading file lines ')
-    for line in l:
-        zero = line.count('0') # counts number of zeros in each line
-        one = line.count('1')  # counts number of ones in each line
-        if(zero % 3== 0 or one % 2 == 0):
-            count += 1
-finally:
-    print('Number of lines: ' + str(count))
-    file.close()
-    print('closing file... ')
-```
-### Output: 
-```
-file opened
-reading file lines
-Number of lines: 6662
-closing file...
-```
-### Flag:
-``` 
-CTFlearn{6662}
-```
-
-## Base 2 2 the 6
-### Given:
-```
-There are so many different ways of encoding and decoding information nowadays... One of them will work! Q1RGe0ZsYWdneVdhZ2d5UmFnZ3l9
-```
-Decoded the given string using Base64 
-### Output:
-```
-CTF{FlaggyWaggyRaggy}
-```
-### Flag:
-``` 
-CTFlearn{FlaggyWaggyRaggy}
-```
-
-## Bruxor
-### Given:
-```
-There is a technique called bruteforce. Message: q{vpln'bH_varHuebcrqxetrHOXEj No key! Just brute .. brute .. brute ... :D
-```
-Used Cyberchef to brute force XOR the message string
-Found the flag at Key = 17
-### Output 
-```
-flag{y0u_Have_bruteforce_XOR}
-```
-### Flag:
-``` 
-CTFlearn{y0u_Have_bruteforce_XOR}
-```
-
-## QR Code 
-### Given:
-```
-Do you remember something known as QR Code? Simple. Here for you : <br /> https://mega.nz/#!eGYlFa5Z!8mbiqg3kosk93qJCP-DBxIilHH2rf7iIVY-kpwyrx-0
-```
-
-Used Cyberchef to parse the QR Code
-### Output:
-``` 
-c3ludCB2ZiA6IGEwX29icWxfczBldHJnX2RlX3BicXI=
-```
-
-Decyphered output string using base64
-### Output:
-``` 
-synt vf : a0_obql_s0etrg_de_pbqr
-```
-Decyphered new string using ROT13 on cyberchef
-### Output:
-```
-flag is : n0_body_f0rget_qr_code
-```
-
-### Flag:
-``` 
-CTFlearn{n0_body_f0rget_qr_code}
-```
-
-## Reverse Polarity
-### Given:
-```
-I got a new hard drive just to hold my flag, but I'm afraid that it rotted. What do I do? The only thing I could get off of it was this: 01000011010101000100011001111011010000100110100101110100010111110100011001101100011010010111000001110000011010010110111001111101
-```
-
-Used Cyberchef to decode from binary
-### Output:
-```
-CTF{Bit_Flippin}
-```
-### Flag:
-``` 
-CTFlearn{Bit_Flippin}
-```
-
-## QR Code V2
-### Given:
-```
-How well are you in the ways of the QR Code? https://mega.nz/#!JItR3aqI!QKGxexShAPt-HUU_2DAdJKUljXc69sx1fXuaGUeoKaY
-```
-Parsed the QR Code using Cyberchef
-
-### Output:
-```
-https://mega.nz/#!9NFhUbwQ!vtrLVum8z-ZXzur33RrGJ4uivMJhA9_5TW2ulHucXoU
-```
-Downloaded Flag.txt from the link 
-### Flag:
-``` 
-CTFlearn{2_QR_4_U}
-```
-
-## Vigenere Cipher
-### Given:
-```
-
-
-The vignere cipher is a method of encrypting alphabetic text by using a series of interwoven Caesar ciphers based on the letters of a keyword.<br />
-
-I’m not sure what this means, but it was left lying around: blorpy
-
-gwox{RgqssihYspOntqpxs}
-
-```
-### Output:
-``` 
-flag{CiphersAreAwesome}
-```
-### Flag:
-``` 
-CTFlearn{CiphersAreAwesome}
-```
-
-
-## Morse Code 
-### Given:
-```
-..-. .-.. .- --. ... .- -- ..- . .-.. -- --- .-. ... . .. ... -.-. --- --- .-.. -... -.-- - .... . .-- .- -.-- .. .-.. .. -.- . -.-. .... . . ...
-```
-### Output:
-``` 
-FLAGSAMUELMORSEISCOOLBYTHEWAYILIKECHEES
-```
-### Flag:
-``` 
-CTFlearn{FLAGSAMUELMORSEISCOOLBYTHEWAYILIKECHEES}
 ```
 
 ## WOW .... So Meta
@@ -450,77 +161,6 @@ Megapixels                      : 0.246
 ### Flag:
 ``` 
 CTFlearn{EEe_x_I_FFf}
-```
-
-## HyperStream Test #2
-### Given:
-```
-I love the smell of bacon in the morning! ABAAAABABAABBABBAABBAABAAAAAABAAAAAAAABAABBABABBAAAAABBABBABABBAABAABABABBAABBABBAABB
-```
-Used Bacon Cipher on Cyberchef to decode the string set with A/B for translation
-### Input:
-```
-ABAAAABABAABBABBAABBAABAAAAAABAAAAAAAABAABBABABBAAAAABBABBABABBAABAABABABBAABBABBAABB
-```
-### Output:
-``` 
-ILOUEBACONDONTYOU
-```
-### Flag:
-``` 
-CTFlearn{ILOUEBACONDONTYOU}
-```
-
-## IP Tracer
-### Given:
-```
-Bob is an amateur hacker and has collected the following IP Address: 159.167.16.5, but Bob needs help finding where the IP Address is located. Can you help Bob find where the IP Address is located. (Type the City name)
-```
-
-Used https://www.iplocation.net/ to find IP's location
-### Output:
-``` 
-London
-```
-### Flag:
-``` 
-CTFlearn{London}
-```
-
-## Lazy Game Challenge
-### Given:
-```
-I found an interesting game made by some guy named "John_123". It is some betting game. I made some small fixes to the game; see if you can still pwn this and steal $1000000 from me!
-
-To get flag, pwn the server at: nc thekidofarcrania.com 10001
-
-```
-### Output:
-``` 
-Welcome to the Game of Luck !.
-
-Rules of the Game :
-(1) You will be Given 500$
-(2) Place a Bet
-(3) Guess the number what computer thinks of !
-(4) computer's number changes every new time !.
-(5) You have to guess a number between 1-10
-(6) You have only 10 tries !.
-(7) If you guess a number > 10, it still counts as a Try !
-(8) Put your mind, Win the game !..
-(9) If you guess within the number of tries, you win money !
-(10) Good Luck !..
-
-theKidOfArcrania:
-  I bet you cannot get past $1000000!
-
-Are you ready? Y/N :
-```
-
-I was able to enter large, negative bet (-$10000000000000000000) towards the game and kept guessing values outside of 1-10 to break more of the game's rules. At the end of the 10 rounds, it said I lost the game, but then update my currency to $10000000000000000500 which prompted the flag to display
-### Flag:
-``` 
-CTFlearn{d9029a08c55b936cbc9a30_i_wish_real_betting_games_were_like_this!}
 ```
 
 ## Rubber Duck
@@ -856,7 +496,20 @@ Used the following command to search for the flag in the first JPEG file
 ```
 strings -n 8 0
 ```
+### Output:
+```
+CTFlearn{CTFIsEasy!!!}
+Q1RGbGVhcm57U2tpQmFuZmZ9Cg==
+Canon EOS 6D Mark II
+GIMP 2.10.6  
+...
+```
+Decoded string found below this pseudo-flag as it stuck out as a Base-64 encoded string
+### Output:
+```
+CTFlearn{SkiBanff}
+```
 ### Flag:
 ``` 
-
+CTFlearn{SkiBanff}
 ```
