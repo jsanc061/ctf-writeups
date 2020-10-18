@@ -1,4 +1,4 @@
-Binary
+Binary Easy
 
 ## Lazy Game Challenge
 ### Given:

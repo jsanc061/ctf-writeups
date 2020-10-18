@@ -1,4 +1,4 @@
-Forensics
+Forensics Easy
 
 ## Forensics 101
 Given this link https://mega.nz/#!OHohCbTa!wbg60PARf4u6E6juuvK9-aDRe_bgEL937VO01EImM7c
@@ -513,3 +513,268 @@ CTFlearn{SkiBanff}
 ``` 
 CTFlearn{SkiBanff}
 ```
+
+## PikesPeak
+### Given:
+```
+Pay attention to those strings!
+PikesPeak.jpg
+```
+
+Used the following command to examine the file:
+```
+file PikesPeak.jpg
+```
+### Output:
+``` 
+PikesPeak.jpg: JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, comment: "CTFLEARN{PikesPeak}", comment: "CTFLearn{Colorado}", comment: "ctflearn{MountainMountainMountain}", comment: "cTfLeArN{CTFMountainCTFmOUNTAIN}", comment: "CTF{AsPEN.Vail}", comment: "CTFlearn{Gandalf}", comment: "ctflearning{AUCKLAND}", comment: "ctfLEARN{MtDoom}", comment: "ctflearninglearning{Mordor.TongariroAlpineCrossing}", comment: "CTFLEARN{MountGedePangrangoNationalPark}", comment: "ctflearncTfLeARN{MountKosciuszko}", progressive, precision 8, 680x510, frames 3
+```
+
+Added grep to the command to narrow down the flag
+```
+file PikesPeak.jpg | grep 'CTFlearn'
+```
+### Output:
+``` 
+CTFlearn{Gandalf}
+```
+### Flag:
+``` 
+CTFlearn{Gandalf}
+```
+
+## GandalfTheWise
+### Given:
+```
+Extract the flag from the Gandalf.jpg file. You may need to write a quick script to solve this.
+Gandalf.jpg
+```
+
+Used the following command to examine the file:
+```
+file Gandalf.jpg
+```
+### Output:
+``` 
+Gandalf.jpg: JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, comment: "Q1RGbGVhcm57eG9yX2lzX3lvdXJfZnJpZW5kfQo=", comment: "xD6kfO2UrE5SnLQ6WgESK4kvD/Y/rDJPXNU45k/p", comment: "h2riEIj13iAp29VUPmB+TadtZppdw3AuO7JRiDyU", baseline, precision 8, 225x225, frames 3
+```
+Tried decoding the first comment as base64 and found a flag hint
+### Input
+```
+Q1RGbGVhcm57eG9yX2lzX3lvdXJfZnJpZW5kfQo=
+```
+### Output
+```
+CTFlearn{xor_is_your_friend}
+```
+
+I found two additional comments using the ``` strings ``` command:
+```
+strings Gandalf.jpg
+```
+
+### Output:
+```
+JFIF
++Q1RGbGVhcm57eG9yX2lzX3lvdXJfZnJpZW5kfQo=
++xD6kfO2UrE5SnLQ6WgESK4kvD/Y/rDJPXNU45k/p
++h2riEIj13iAp29VUPmB+TadtZppdw3AuO7JRiDyU
+```
+
+Then I decoded the other two comment strings and placed their output into individual files:
+```
+echo 'xD6kfO2UrE5SnLQ6WgESK4kvD/Y/rDJPXNU45k/p' | base64 -d > outfile1.txt
+echo 'h2riEIj13iAp29VUPmB+TadtZppdw3AuO7JRiDyU' | base64 -d > outfile2.txt
+```
+
+From here, I was able to view the outfile's hex information to read the raw byte output using the following commands:
+### Input:
+```
+xxd outfile1.txt
+```
+### Output:
+```
+00000000: c43e a47c ed94 ac4e 529c b43a 5a01 122b  .>.|...NR..:Z..+
+00000010: 892f 0ff6 3fac 324f 5cd5 38e6 4fe9       ./..?.2O\.8.O.
+```
+
+### Input:
+```
+xxd outfile2.txt
+```
+### Output:
+```
+00000000: 876a e210 88f5 de20 29db d554 3e60 7e4d  .j..... )..T>`~M
+00000010: a76d 669a 5dc3 702e 3bb2 5188 3c94       .mf.].p.;.Q.<.
+```
+
+After grabbing the two hex values from each output file, we can now use the xor operation to find the final flag. To perform this calculation, I used the following website, http://www.xor.pw/ and placed each hex string into the inputs as hexadecimal base 16 to produce the flag in a hex string.
+```
+c43e a47c ed94 ac4e 529c b43a 5a01 122b 892f 0ff6 3fac 324f 5cd5 38e6 4fe9
+876a e210 88f5 de20 29db d554 3e60 7e4d a76d 669a 5dc3 702e 3bb2 5188 3c94
+```
+### Output:
+```
+4354466c6561726e7b47616e64616c662e42696c626f42616767696e737d
+```
+Finally, converting the string from hex to ascii text we see the final flag.
+### Flag:
+``` 
+CTFlearn{Gandalf.BilboBaggins}
+```
+
+## Tux!
+### Given:
+```
+The flag is hidden inside the Penguin! Solve this challenge before solving my 100 point Scope challenge which uses similar techniques as this one.
+Tux.jpg - https://ctflearn.com/challenge/download/973 
+
+Used the ``` file ``` command on the given file
+```
+### Output:
+``` 
+973: JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, comment: "ICAgICAgUGFzc3dvcmQ6IExpbnV4MTIzNDUK", baseline, precision 8, 196x216, frames 3
+```
+
+Converted the comment string from base64 found in the output
+### Output: 
+```
+Password: Linux12345
+```
+Next, use the binwalk command to extract all files including the hidden ones
+```
+binwalk -D='.*' 973
+```
+### Output:
+```
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             JPEG image data, JFIF standard 1.01
+5488          0x1570          Zip archive data, encrypted at least v1.0 to extract, compressed size: 39, uncompressed size: 27, name: flag
+5679          0x162F          End of Zip archive
+```
+
+A file ``` 1570 ``` is found within the JPEG image that contains a description that it might be a zip folder. Next, we change the to the directory that holds the extracted files and then convert the file by adding the .zip extension using 
+```
+cp 1570 1570.zip
+```
+Now the information in the zip file can be extracted by using
+```
+unzip 1570.zip
+```
+
+This prompts a password in order for the files to be extraced which we already found earlier in the file's comments section, ``` Password: Linux12345 ```
+Once the password is entered, a ``` flag ``` file is extracted. 
+Using the command ``` cat flag ``` outputs the final flag for this challenge.
+
+### Flag:
+``` 
+CTFlearn{Linux_Is_Awesome}
+```
+
+## Chalkboard
+### Given:
+```
+Solve the equations embedded in the jpeg to find the flag. Solve this problem before solving my Scope challenge which is worth 100 points.
+math.jpg - https://ctflearn.com/challenge/download/972
+```
+
+Used ``` exiftool ``` on the JPEG file given
+### Output:
+``` 
+ExifTool Version Number         : 10.80
+File Name                       : 972
+Directory                       : .
+File Size                       : 187 kB
+File Modification Date/Time     : 2020:07:20 23:39:17-05:00
+File Access Date/Time           : 2020:08:09 23:46:18-05:00
+File Inode Change Date/Time     : 2020:08:09 23:45:44-05:00
+File Permissions                : rwxrwxrwx
+File Type                       : JPEG
+File Type Extension             : jpg
+MIME Type                       : image/jpeg
+JFIF Version                    : 1.01
+Resolution Unit                 : None
+X Resolution                    : 1
+Y Resolution                    : 1
+Comment                         : The flag for this challenge is of the form:..CTFlearn{I_Like_Math_x_y}..where x and y are the solution to these equations:..3x + 5y = 31..7x + 9y = 59...
+Image Width                     : 640
+Image Height                    : 316
+Encoding Process                : Baseline DCT, Huffman coding
+Bits Per Sample                 : 8
+Color Components                : 3
+Y Cb Cr Sub Sampling            : YCbCr4:4:4 (1 1)
+Image Size                      : 640x316
+Megapixels                      : 0.202
+```
+
+To solve the next part, I wrote a small python program to solve the systems of equations given for x and y.
+### Source Code
+```
+import numpy as py
+
+# Solve for x and y 
+# 3x + 5y = 31
+# 7x + 9y = 59
+
+A = py.array([[3, 5], [7, 9]])
+B = py.array([31, 59])
+ans = py.linalg.solve(A,B)
+print(ans)  # [2, 5] => x=2, y=5
+```
+After solving for x and y, replace the found values into the flag found earlier from the comments section.
+### Flag:
+``` 
+CTFlearn{I_Like_Math_2_5}
+```
+
+## Exif
+### Given:
+```
+If only the password were in the image?
+
+https://mega.nz/#!SDpF0aYC!fkkhBJuBBtBKGsLTDiF2NuLihP2WRd97Iynd3PhWqRw You could really ‘own’ it with exif.
+```
+The link downloaded a file named ``` Computer-Password-Security-Hacker - Copy.jpg ```
+
+Used the following command to find the flag in the metadata of this image:
+``` 
+exiftool Computer-Password-Security-Hacker\ -\ Copy.jpg 
+```
+### Output:
+``` 
+Owner Name : flag{3l1t3_3x1f_4uth0r1ty_dud3br0}
+```
+### Flag:
+``` 
+CTFlearn{3l1t3_3x1f_4uth0r1ty_dud3br0}
+```
+
+## Pho Is Tasty!
+### Given:
+```
+The flag is hidden in the jpeg file. Good Luck! Have some Pho! Solve this challenge before solving my Scope challenge for 100 points.
+Pho.jpg - https://ctflearn.com/challenge/download/971
+```
+Used the following command to view the hex dump of this image to find the flag:
+```
+xxd Pho.jpg
+```
+### Output:
+``` 
+00000000: ffd8 ffe0 0010 4a46 4946 0001 0100 0001  ......JFIF......
+00000010: 0001 0000 ffe3 006f 5361 6d73 756e 6700  .......oSamsung.
+00000020: 5361 6d73 756e 6720 4761 6c61 7879 2053  Samsung Galaxy S
+00000030: 3820 436f 6c6f 7220 5061 6c65 7474 653a  8 Color Palette:
+00000040: 1d09 4304 1554 0206 4614 0d6c 160e 6506  ..C..T..F..l..e.
+00000050: 1961 171f 721b 186e 010c 7b04 0749 0f03  .a..r..n..{..I..
+00000060: 5f02 0e4c 1618 6f1f 0476 190c 651f 065f  _..L..o..v..e.._
+00000070: 1801 5011 1068 1314 6f1a 0221 0402 2113  ..P..h..o..!..!.
+00000080: 1421 0b14 7dff db00 8400 0808 0808 0808  .!..}...........
+```
+### Flag:
+``` 
+CTFlearn{I_Love_Pho!!!}
+```
+
+

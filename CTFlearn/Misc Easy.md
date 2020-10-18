@@ -1,4 +1,4 @@
-Misc
+Misc Easy
 
 ## Where Can My Robot Go?
 ### Given: 

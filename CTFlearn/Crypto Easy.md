@@ -1,4 +1,4 @@
-Crypto
+Crypto Easy
 
 ## Character Encoding
 ### Given:
